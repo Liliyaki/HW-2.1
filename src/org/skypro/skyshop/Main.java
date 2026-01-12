@@ -25,7 +25,7 @@ public class Main {
         basket.addProduct(tomato);
         basket.printBasket();
         System.out.println("Если ли сок?" + basket.containsProductByName("сок "));
-        System.out.println("Общая стоимоcть " + basket.getTotalPrice() + " рублей.");
+        System.out.println("Общая стоимоcть  " + basket.getTotalPrice() + " рублей.");
         basket.clearBasket();
         basket.printBasket();
     }
