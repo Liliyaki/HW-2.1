@@ -34,28 +34,34 @@ public class ProductBasket {
             System.out.println("в корзине пусто");
             return;
         }
+        int specialCount = 0;
 
         for (int i = 0; i < size; i++) {
             Product product = products[i];
             System.out.println(product.getProductName() + ": " + product.getProductPrice());
-        }
-        System.out.println("Итого: " + getTotalPrice());
-    }
-
-    public boolean containsProductByName(String name) {
-        for (int i = 0; i < size; i++) {
-            if (products[i].getProductName().equals(name)) {
-                return true;
+            if (product.isSpecial()) {
+                specialCount++;
             }
+            System.out.println("Итого: " + getTotalPrice());
+            System.out.println("Специальных товаров: " + specialCount);
         }
-        return false;
     }
 
-    public void clearBasket() {
-        for (int i = 0; i < size; i++) {
-            products[i] = null;
+        public boolean containsProductByName (String productName){
+            for (int i = 0; i < size; i++) {
+                if (products[i].getProductName().equals(productName)) {
+                    return true;
+                }
+            }
+            return false;
         }
-        size = 0;
+
+        public void clearBasket () {
+            for (int i = 0; i < size; i++) {
+                products[i] = null;
+            }
+            size = 0;
+        }
     }
-}
+
 
