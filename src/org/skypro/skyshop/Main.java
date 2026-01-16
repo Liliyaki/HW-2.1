@@ -8,6 +8,7 @@ import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.search.Article;
 import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
+
 public class Main {
     public static void main(String[] args) {
         Product juice = new DiscountedProduct("Сок", 250, 70);
@@ -46,6 +47,7 @@ public class Main {
         testSearch(searchEngine, "сахара");
         testSearch(searchEngine, "курица");
         testSearch(searchEngine, "польза");
+        testSearch(searchEngine, "апельсин");
 
 
     }
