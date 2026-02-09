@@ -11,6 +11,30 @@ import org.skypro.skyshop.search.Searchable;
 
 public class Main {
     public static void main(String[] args) {
+        try {
+            Product cucumber = new SimpleProduct("",200);
+            System.out.println("Продукт добавлен:" + cucumber);
+        } catch (IllegalAccessError e){
+            System.out.println("Ошибка:" + e.getMessage());
+        }
+        try {
+            Product cucumber = new SimpleProduct("Огурец",-200);
+            System.out.println("Продукт добавлен:" + cucumber);
+        } catch (IllegalAccessError e){
+            System.out.println("Ошибка:" + e.getMessage());
+        }
+        try {
+            Product cucumber = new DiscountedProduct("Огурец",200, -10);
+            System.out.println("Продукт добавлен:" + cucumber);
+        } catch (IllegalAccessError e){
+            System.out.println("Ошибка:" + e.getMessage());
+        }
+        try {
+            Product cucumber = new DiscountedProduct("Огурец",-200, 10);
+            System.out.println("Продукт добавлен:" + cucumber);
+        } catch (IllegalAccessError e){
+            System.out.println("Ошибка:" + e.getMessage());
+        }
         Product juice = new DiscountedProduct("Сок", 250, 70);
         Product chicken = new SimpleProduct("Курица", 500);
         Product potato = new DiscountedProduct("Картошка", 150, 20);
