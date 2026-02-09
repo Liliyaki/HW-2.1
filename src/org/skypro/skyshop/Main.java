@@ -30,7 +30,7 @@ public class Main {
             System.out.println("Ошибка:" + e.getMessage());
         }
         try {
-            Product cucumber = new DiscountedProduct("Огурец",-200, 10);
+            Product cucumber = new DiscountedProduct("Огурец",-100, 10);
             System.out.println("Продукт добавлен:" + cucumber);
         } catch (IllegalAccessError e){
             System.out.println("Ошибка:" + e.getMessage());
