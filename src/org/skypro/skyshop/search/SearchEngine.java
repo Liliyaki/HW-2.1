@@ -1,36 +1,27 @@
 package org.skypro.skyshop.search;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SearchEngine {
-    private Searchable[] searchables;
+    private List<Searchable> searchables;
     private int size;
 
     public SearchEngine(int capacity) {
-        this.searchables = new Searchable[capacity];
+        this.searchables = new ArrayList<>();
         this.size = 0;
     }
 
     public void add(Searchable searchable) {
-        if (size < searchables.length) {
-            searchables[size] = searchable;
-            size++;
-        } else {
-            System.out.println("Элемент нельзя найти.");
-        }
+        searchables.add(searchable);
     }
 
-    public Searchable[] search(String query) {
-        Searchable[] results = new Searchable[5];
-        int resultIndex = 0;
+    public List<Searchable> search(String query) {
+        List<Searchable> results = new ArrayList<>();
 
-        for (int i = 0; i < size; i++) {
-            if (resultIndex >= 5) {
-                break;
-            }
-
-            Searchable searchable = searchables[i];
-            if (searchable.getSearchTerm().toLowerCase().contains(query.toLowerCase())) {
-                results[resultIndex] = searchable;
-                resultIndex++;
+        for (Searchable item : searchables) {
+            if (item.getSearchTerm().toLowerCase().contains(query.toLowerCase())) {
+                results.add(item);
             }
         }
 
@@ -46,10 +37,10 @@ public class SearchEngine {
         Searchable bestMatch = null;
         int maxOccurrences = -1;
 
-        for (int i = 0; i < size; i++) {
-            Searchable item = searchables[i];
+        for (Searchable item : searchables) {
             String searchTerm = item.getSearchTerm().toLowerCase();
 
+            // Подсчитываем количество вхождений query в searchTerm
             int occurrences = countOccurrences(searchTerm, query);
 
             if (occurrences > maxOccurrences) {
@@ -82,6 +73,6 @@ public class SearchEngine {
     }
 
     public int getSize() {
-        return size;
+        return searchables.size();
     }
 }

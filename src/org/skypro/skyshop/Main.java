@@ -12,25 +12,25 @@ import org.skypro.skyshop.search.Searchable;
 public class Main {
     public static void main(String[] args) {
         try {
-            Product cucumber = new SimpleProduct("",200);
+            Product cucumber = new SimpleProduct("огурец",200);
             System.out.println("Продукт добавлен:" + cucumber);
         } catch (IllegalAccessError e){
             System.out.println("Ошибка:" + e.getMessage());
         }
         try {
-            Product cucumber = new SimpleProduct("Огурец",-200);
+            Product cucumber = new SimpleProduct("Огурец",200);
             System.out.println("Продукт добавлен:" + cucumber);
         } catch (IllegalAccessError e){
             System.out.println("Ошибка:" + e.getMessage());
         }
         try {
-            Product cucumber = new DiscountedProduct("Огурец",200, -10);
+            Product cucumber = new DiscountedProduct("Огурец",200, 10);
             System.out.println("Продукт добавлен:" + cucumber);
         } catch (IllegalAccessError e){
             System.out.println("Ошибка:" + e.getMessage());
         }
         try {
-            Product cucumber = new DiscountedProduct("Огурец",-100, 10);
+            Product cucumber = new DiscountedProduct("Огурец",100, 10);
             System.out.println("Продукт добавлен:" + cucumber);
         } catch (IllegalAccessError e){
             System.out.println("Ошибка:" + e.getMessage());
@@ -78,7 +78,7 @@ public class Main {
 
     private static void testSearch(SearchEngine searchEngine, String query) {
         System.out.println("\nПоиск по запросу: \"" + query + "\"");
-        Searchable[] results = searchEngine.search(query);
+        Searchable[] results = searchEngine.search(query).toArray(new Searchable[0]);
 
         boolean hasResults = false;
         for (Searchable result : results) {
