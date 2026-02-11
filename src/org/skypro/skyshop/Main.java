@@ -9,6 +9,8 @@ import org.skypro.skyshop.search.Article;
 import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
 
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         try {
@@ -51,6 +53,15 @@ public class Main {
         basket.addProduct(eggs);
         basket.addProduct(lemonade);
         basket.addProduct(tomato);
+        basket.printBasket();
+        System.out.println("Удаление продукта из корзины");
+        List<Product> removedProducts = basket.removeProductsByName("Сок");
+        System.out.println("Удаленные продукты:");
+        for (Product product : removedProducts) {
+            System.out.println("  - " + product.getProductName() + ": " + product.getProductPrice() + " руб.");
+        }
+        System.out.println("Всего удалено: " + removedProducts.size() + " товар(ов)");
+        System.out.println("Коризна после удаления продуктов");
         basket.printBasket();
         System.out.println("Если ли сок?" + basket.containsProductByName("сок"));
         System.out.println("Общая стоимоcть  " + basket.getTotalPrice() + " рублей.");
