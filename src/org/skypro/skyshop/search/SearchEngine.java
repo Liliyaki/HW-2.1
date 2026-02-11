@@ -1,6 +1,6 @@
 package org.skypro.skyshop.search;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class SearchEngine {
@@ -8,7 +8,7 @@ public class SearchEngine {
     private int size;
 
     public SearchEngine(int capacity) {
-        this.searchables = new ArrayList<>();
+        this.searchables = new LinkedList<>();
         this.size = 0;
     }
 
@@ -17,7 +17,7 @@ public class SearchEngine {
     }
 
     public List<Searchable> search(String query) {
-        List<Searchable> results = new ArrayList<>();
+        List<Searchable> results = new LinkedList<>();
 
         for (Searchable item : searchables) {
             if (item.getSearchTerm().toLowerCase().contains(query.toLowerCase())) {
