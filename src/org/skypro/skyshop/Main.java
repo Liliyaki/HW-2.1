@@ -88,7 +88,7 @@ public class Main {
     }
 
     private static void testSearch(SearchEngine searchEngine, String query) {
-        System.out.println("\nПоиск по запросу: \"" + query + "\"");
+        System.out.println("\nПоиск по запросу:  \"" + query + "\"");
         Searchable[] results = searchEngine.search(query).toArray(new Searchable[0]);
 
         boolean hasResults = false;
