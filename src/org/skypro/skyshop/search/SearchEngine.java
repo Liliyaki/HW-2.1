@@ -30,7 +30,7 @@ public class SearchEngine {
 
     public Searchable findBestMatch(String query) throws BestResultNotFound {
         if (query == null || query.trim().isEmpty()) {
-            throw new IllegalArgumentException("Поисковый запрос не может быть null или пустой строкой");
+            throw new IllegalArgumentException("Поисковый запрос не может быть null  или пустой строкой");
         }
 
         query = query.toLowerCase().trim();
