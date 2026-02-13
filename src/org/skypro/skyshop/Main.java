@@ -10,31 +10,32 @@ import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
 
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
         try {
-            Product cucumber = new SimpleProduct("огурец",200);
+            Product cucumber = new SimpleProduct("огурец", 200);
             System.out.println("Продукт добавлен:" + cucumber);
-        } catch (IllegalAccessError e){
+        } catch (IllegalAccessError e) {
             System.out.println("Ошибка:" + e.getMessage());
         }
         try {
-            Product cucumber = new SimpleProduct("Огурец",200);
+            Product cucumber = new SimpleProduct("Огурец", 200);
             System.out.println("Продукт добавлен:" + cucumber);
-        } catch (IllegalAccessError e){
+        } catch (IllegalAccessError e) {
             System.out.println("Ошибка:" + e.getMessage());
         }
         try {
-            Product cucumber = new DiscountedProduct("Огурец",200, 10);
+            Product cucumber = new DiscountedProduct("Огурец", 200, 10);
             System.out.println("Продукт добавлен:" + cucumber);
-        } catch (IllegalAccessError e){
+        } catch (IllegalAccessError e) {
             System.out.println("Ошибка:" + e.getMessage());
         }
         try {
-            Product cucumber = new DiscountedProduct("Огурец",100, 10);
+            Product cucumber = new DiscountedProduct("Огурец", 100, 10);
             System.out.println("Продукт добавлен:" + cucumber);
-        } catch (IllegalAccessError e){
+        } catch (IllegalAccessError e) {
             System.out.println("Ошибка:" + e.getMessage());
         }
         Product juice = new DiscountedProduct("Сок", 250, 70);
@@ -68,7 +69,7 @@ public class Main {
         basket.clearBasket();
         basket.printBasket();
         System.out.println("Поиск");
-        SearchEngine searchEngine = new SearchEngine(10);
+        SearchEngine searchEngine = new SearchEngine();
         searchEngine.add(juice);
         searchEngine.add(chicken);
         searchEngine.add(potato);
@@ -78,29 +79,21 @@ public class Main {
         searchEngine.add(articleJuice);
         searchEngine.add(articleChicken);
         searchEngine.add(articleTomato);
-        testSearch(searchEngine, "клетчатки");
-        testSearch(searchEngine, "сахара");
-        testSearch(searchEngine, "курица");
-        testSearch(searchEngine, "польза");
-        testSearch(searchEngine, "апельсин");
+        System.out.println("Всего элементов в поисковике: " + searchEngine.getSize());
+        System.out.println("\n1. Поиск по запросу 'курица':");
+        Map<String, Searchable> results = searchEngine.search("курица");
+        System.out.println("Найдено " + results.size() + " результат(ов):");
+        System.out.println("Результаты отсортированы по имени:");
+        for (Map.Entry<String, Searchable> entry : results.entrySet()) {
+            System.out.println("  - " + entry.getKey() + " : " + entry.getValue().getStringRepresentation());
 
-
-    }
-
-    private static void testSearch(SearchEngine searchEngine, String query) {
-        System.out.println("\nПоиск по запросу:  \"" + query + "\"");
-        Searchable[] results = searchEngine.search(query).toArray(new Searchable[0]);
-
-        boolean hasResults = false;
-        for (Searchable result : results) {
-            if (result != null) {
-                System.out.println("- " + result.getStringRepresentation());
-                hasResults = true;
-            }
         }
-
-        if (!hasResults) {
-            System.out.println("Ничего не найдено");
+        System.out.println("\n2. Поиск по запросу 'сахар':");
+        results = searchEngine.search("сахар");
+        System.out.println("Найдено " + results.size() + " результат(ов):");
+        System.out.println("Результаты отсортированы по имени:");
+        for (Map.Entry<String, Searchable> entry : results.entrySet()) {
+            System.out.println("  - " + entry.getKey() + " : " + entry.getValue().getStringRepresentation());
         }
     }
 }

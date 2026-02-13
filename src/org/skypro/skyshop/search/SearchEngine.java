@@ -1,27 +1,27 @@
 package org.skypro.skyshop.search;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class SearchEngine {
-    private List<Searchable> searchables;
-    private int size;
+    private final List<Searchable> searchables;
 
-    public SearchEngine(int capacity) {
-        this.searchables = new LinkedList<>();
-        this.size = 0;
+    public SearchEngine() {
+        this.searchables = new ArrayList<>();
     }
 
     public void add(Searchable searchable) {
         searchables.add(searchable);
     }
 
-    public List<Searchable> search(String query) {
-        List<Searchable> results = new LinkedList<>();
+    public Map<String, Searchable> search(String query) {
+        Map<String, Searchable> results = new TreeMap<>();
 
         for (Searchable item : searchables) {
             if (item.getSearchTerm().toLowerCase().contains(query.toLowerCase())) {
-                results.add(item);
+                results.put(item.getProductName(), item);
             }
         }
 
@@ -30,7 +30,7 @@ public class SearchEngine {
 
     public Searchable findBestMatch(String query) throws BestResultNotFound {
         if (query == null || query.trim().isEmpty()) {
-            throw new IllegalArgumentException("Поисковый запрос не может быть null  или пустой строкой");
+            throw new IllegalArgumentException("Поисковый запрос не может быть null или пустой строкой");
         }
 
         query = query.toLowerCase().trim();
@@ -39,8 +39,6 @@ public class SearchEngine {
 
         for (Searchable item : searchables) {
             String searchTerm = item.getSearchTerm().toLowerCase();
-
-            // Подсчитываем количество вхождений query в searchTerm
             int occurrences = countOccurrences(searchTerm, query);
 
             if (occurrences > maxOccurrences) {
