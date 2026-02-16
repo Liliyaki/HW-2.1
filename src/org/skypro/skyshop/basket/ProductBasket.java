@@ -13,10 +13,7 @@ public class ProductBasket {
 
     public void addProduct(Product product) {
         String productName = product.getProductName();
-
-        List<Product> productList = productsMap.getOrDefault(productName, new ArrayList<>());
-        productList.add(product);
-        productsMap.put(productName, productList);
+        productsMap.computeIfAbsent(productName, k -> new ArrayList<>());
     }
 
     public int getTotalPrice() {

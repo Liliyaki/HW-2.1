@@ -10,7 +10,7 @@ import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
@@ -80,20 +80,29 @@ public class Main {
         searchEngine.add(articleChicken);
         searchEngine.add(articleTomato);
         System.out.println("Всего элементов в поисковике: " + searchEngine.getSize());
-        System.out.println("\n1. Поиск по запросу 'курица':");
-        Map<String, Searchable> results = searchEngine.search("курица");
-        System.out.println("Найдено " + results.size() + " результат(ов):");
-        System.out.println("Результаты отсортированы по имени:");
-        for (Map.Entry<String, Searchable> entry : results.entrySet()) {
-            System.out.println("  - " + entry.getKey() + " : " + entry.getValue().getStringRepresentation());
-
-        }
+        System.out.println("Поиск по запросу 'сок':");
+        Set<Searchable> results = searchEngine.search("сок");
+        printSearchResults(results);
         System.out.println("\n2. Поиск по запросу 'сахар':");
-        results = searchEngine.search("сахар");
-        System.out.println("Найдено " + results.size() + " результат(ов):");
-        System.out.println("Результаты отсортированы по имени:");
-        for (Map.Entry<String, Searchable> entry : results.entrySet()) {
-            System.out.println("  - " + entry.getKey() + " : " + entry.getValue().getStringRepresentation());
+        Set<Searchable> results2 = searchEngine.search("сахар");
+       printSearchResults(results2);
+        System.out.println("\n2. Поиск по запросу 'курица':");
+        Set<Searchable> results3 = searchEngine.search("курица");
+        printSearchResults(results3);
+        }
+            private static void printSearchResults(Set<Searchable> results) {
+            if (results.isEmpty()) {
+                System.out.println("  Ничего не найдено");
+                return;
+            }
+
+            System.out.println("Найдено " + results.size() + " результат(ов):");
+            int index = 1;
+            for (Searchable item : results) {
+                System.out.println("  " + index + ". " + item.getProductName() +
+                        " (длина: " + item.getProductName().length() + ") - " +
+                        item.getContentType());
+                index++;
         }
     }
 }
