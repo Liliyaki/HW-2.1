@@ -13,19 +13,21 @@ public class ProductBasket {
 
     public void addProduct(Product product) {
         String productName = product.getProductName();
-        productsMap.computeIfAbsent(productName, k -> new ArrayList<>());
+        productsMap.computeIfAbsent(productName, k -> new ArrayList<>()).add(product);
     }
 
     public int getTotalPrice() {
-        int total = 0;
+        return productsMap.values().stream()
+                .flatMap(Collection::stream)
+                .mapToInt(Product::getProductPrice)
+                .sum();
+    }
 
-        for (List<Product> productList : productsMap.values()) {
-            for (Product product : productList) {
-                total += product.getProductPrice();
-            }
-        }
-
-        return total;
+    private long getSpecialCount() {
+        return productsMap.values().stream()
+                .flatMap(Collection::stream)
+                .filter(Product::isSpecial)
+                .count();
     }
 
     public void printBasket() {
@@ -34,19 +36,12 @@ public class ProductBasket {
             return;
         }
 
-        int specialCount = 0;
-
-        for (List<Product> productList : productsMap.values()) {
-            for (Product product : productList) {
-                System.out.println(product.toString());
-                if (product.isSpecial()) {
-                    specialCount++;
-                }
-            }
-        }
+        productsMap.values().stream()
+                .flatMap(Collection::stream)
+                .forEach(product -> System.out.println(product.toString()));
 
         System.out.println("Итого: " + getTotalPrice());
-        System.out.println("Специальных товаров: " + specialCount);
+        System.out.println("Специальных товаров: " + getSpecialCount());
     }
 
     public boolean containsProductByName(String productName) {
@@ -55,12 +50,7 @@ public class ProductBasket {
 
     public List<Product> removeProductsByName(String name) {
         List<Product> removedProducts = productsMap.remove(name);
-
-        if (removedProducts == null) {
-            return new ArrayList<>();
-        }
-
-        return removedProducts;
+        return removedProducts == null ? new ArrayList<>() : removedProducts;
     }
 
     public void clearBasket() {
@@ -68,11 +58,9 @@ public class ProductBasket {
     }
 
     public int getSize() {
-        int size = 0;
-        for (List<Product> productList : productsMap.values()) {
-            size += productList.size();
-        }
-        return size;
+        return productsMap.values().stream()
+                .mapToInt(List::size)
+                .sum();
     }
 }
 
